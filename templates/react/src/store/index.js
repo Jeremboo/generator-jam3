@@ -2,6 +2,7 @@
 import { compose, applyMiddleware, createStore, combineReducers } from 'redux'
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory'
+import thunk from 'redux-thunk';
 
 import * as appReducers from './reducers/app';
 import * as preloaderReducers from './reducers/preloader';
@@ -18,7 +19,7 @@ function enableBatchActions(reducers) {
   };
 }
 
-const middleware = [routerMiddleware(history)];
+const middleware = [routerMiddleware(history), thunk];
 const enhancers = [];
 const initialState = {};
 

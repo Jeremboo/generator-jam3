@@ -17,3 +17,12 @@ export const windowSize = (state = {width: 1024, height: 680}, action) => {
       return state;
   }
 };
+
+export const connected = (state = false, action) => {
+  switch (action.type) {
+    case keys.SET_CONNECTED:
+      return action.connected;
+    default:
+      return state;
+  }
+};

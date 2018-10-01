@@ -2,12 +2,18 @@ import { connect } from 'react-redux';
 import connectTransitionWrapper from '../../decorators/connectTransitionWrapper';
 import Landing from './Landing';
 
+import { login } from '../../store/middlewares/api';
+
 const mapStateToProps = (state, ownProps) => {
-  return {};
+  return {
+    connected: state.connected,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    login: (email, pwd) => dispatch(login(email, pwd))
+  };
 };
 
 @connectTransitionWrapper()

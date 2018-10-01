@@ -13,3 +13,10 @@ export const setWindowSize = function(windowSize) {
     windowSize,
   };
 };
+
+export const setConnected = function(connected) {
+  return {
+    type: keys.SET_CONNECTED,
+    connected,
+  };
+};

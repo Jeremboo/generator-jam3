@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import animate from 'gsap';
 import PropTypes from 'prop-types';
 
-class Landing extends React.PureComponent {
+class Landing extends PureComponent {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
     animate.set(this.container, {autoAlpha: 0});
+
+    // Example of middleware usage
+    this.props.login();
   }
 
   componentWillAppear(done) {
@@ -32,8 +35,7 @@ class Landing extends React.PureComponent {
   };
 
   render() {
-    const props = this.props;
-    const style = Object.assign({}, props.style);
+    const { style, connected } = this.props;
 
     return (
       <main
@@ -42,6 +44,7 @@ class Landing extends React.PureComponent {
         ref={r => this.container = r}
       >
         <h1>Landing</h1>
+        <p>{connected ? 'Connected' : 'Not connected'}</p>
       </main>
     );
   }
