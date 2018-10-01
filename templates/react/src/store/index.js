@@ -4,30 +4,15 @@ import { routerMiddleware, routerReducer } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory'
 import thunk from 'redux-thunk';
 
-import * as appReducers from './reducers/app';
-import * as preloaderReducers from './reducers/preloader';
+import reducers from './reducers';
+
+
 export const history = createHistory({ basename: process.env.BASENAME });
 
-function enableBatchActions(reducers) {
-  return function(state, action) {
-    switch (action.type) {
-      case 'BATCH_ACTIONS':
-        return action.actions.reduce(reducers, state);
-      default:
-        return reducers(state, action);
-    }
-  };
-}
+const initialState = {};
 
 const middleware = [routerMiddleware(history), thunk];
 const enhancers = [];
-const initialState = {};
-
-const rootReducer = combineReducers({
-  ...appReducers,
-  ...preloaderReducers,
-  routing: routerReducer,
-});
 
 if (process.env.NODE_ENV === 'development') {
   const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
@@ -40,4 +25,4 @@ if (process.env.NODE_ENV === 'development') {
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
 
 
-export default createStore(enableBatchActions(rootReducer), initialState, composedEnhancers);
+export default createStore(reducers, initialState, composedEnhancers);

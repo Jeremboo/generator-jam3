@@ -3,24 +3,22 @@ import keys from '../keys';
 const preloadList = require(`../../../raw-assets/preload.json`);
 
 const defaultState = {
-  preloader: {
-    assets: preloadList,
-    progress: 0,
-  },
+  assets: preloadList,
+  progress: 0,
 };
 
-export const preloader = (state = defaultState.preloader, action) => {
+export default function(state = defaultState, action) {
   switch (action.type) {
     case keys.SET_ASSETS:
       return {
         ...state,
-        assets: action.assets,
+        assets: action.payload,
       };
 
     case keys.SET_PROGRESS:
       return {
         ...state,
-        progress: action.progress,
+        progress: action.payload,
       };
 
     default:

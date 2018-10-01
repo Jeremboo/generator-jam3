@@ -4,7 +4,7 @@ import { setWindowSize } from '../../store/actions/app';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ready: state.ready,
+    ready: state.app.ready,
     windowWidth: state.windowSize.width,
     windowHeight: state.windowSize.height,
   };

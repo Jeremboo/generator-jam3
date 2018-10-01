@@ -6,7 +6,7 @@ import { login } from '../../store/middlewares/api';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    connected: state.connected,
+    connected: state.app.connected,
   };
 };
 

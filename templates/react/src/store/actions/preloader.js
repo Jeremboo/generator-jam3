@@ -1,15 +1,15 @@
 import keys from '../keys';
 
-export const setAssets = function(assets) {
+export const setAssets = function(payload) {
   return {
     type: keys.SET_ASSETS,
-    assets,
+    payload,
   };
 };
 
-export const setProgress = function(progress) {
+export const setProgress = function(payload) {
   return {
     type: keys.SET_PROGRESS,
-    progress,
+    payload,
   };
 };

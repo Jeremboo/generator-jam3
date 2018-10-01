@@ -1,27 +1,22 @@
 import keys from '../keys';
 
-export const ready = function(state = false, action) {
+const defaultState = {
+  ready: false,
+  connected: false,
+};
+
+export default function(state = defaultState, action) {
   switch (action.type) {
     case keys.SET_READY:
-      return action.ready;
-    default:
-      return state;
-  }
-};
-
-export const windowSize = (state = {width: 1024, height: 680}, action) => {
-  switch (action.type) {
-    case keys.SET_WINDOW_SIZE:
-      return action.windowSize;
-    default:
-      return state;
-  }
-};
-
-export const connected = (state = false, action) => {
-  switch (action.type) {
+      return {
+        ...state,
+        ready: action.payload,
+      };
     case keys.SET_CONNECTED:
-      return action.connected;
+      return {
+        ...state,
+        connected: action.payload,
+      };
     default:
       return state;
   }

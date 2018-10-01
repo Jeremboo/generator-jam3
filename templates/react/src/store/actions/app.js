@@ -1,22 +1,15 @@
 import keys from '../keys';
 
-export const setReady = function(ready) {
+export const setReady = function(payload) {
   return {
     type: keys.SET_READY,
-    ready,
+    payload,
   };
 };
 
-export const setWindowSize = function(windowSize) {
-  return {
-    type: keys.SET_WINDOW_SIZE,
-    windowSize,
-  };
-};
-
-export const setConnected = function(connected) {
+export const setConnected = function(payload) {
   return {
     type: keys.SET_CONNECTED,
-    connected,
+    payload,
   };
 };
