@@ -77,7 +77,7 @@
     "rfg-api": "^0.3.0",
     "mozjpeg": "^6.0.0",
     "pngquant-bin": "^5.0.0",
-    "uglify-js": "^2.6.1",
+    "uglify-js": "^3.4.9",
     "brfs": "^1.2.0",{{#is framework 'bigwheel'}}
     "browserify-shim": "^3.8.0",{{/is}}
     "browserify": "^14.1.0"{{#if useES6}},

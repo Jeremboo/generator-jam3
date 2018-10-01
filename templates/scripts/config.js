@@ -18,7 +18,7 @@ if (type==='production' && config.timestamp) {
 
     config.bundle = path.parse(config.bundle).name.split(delimiter)[0] + stamp + '.js';
     if (config.vendor) config.vendor = path.parse(config.vendor).name.split(delimiter)[0] + stamp + '.js';
-    
+
     var parsed = path.parse(config.ASSET_PATH);
     config.ASSET_PATH = path.join(parsed.dir, parsed.base+stamp)+'/';
   }
@@ -29,8 +29,6 @@ process.env.NODE_ENV = config.NODE_ENV;
 process.env.BASENAME = config.BASENAME;
 process.env.ASSET_PATH = config.ASSET_PATH;
 if (config.env) {
-  Object.keys(config.env).forEach(function(cur) {
-    process.env[cur] = config.env[cur];
-  });
+  Object.assign(process.env, config.env);
 }
 module.exports = config;
