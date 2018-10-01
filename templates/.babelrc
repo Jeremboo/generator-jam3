@@ -1,18 +1,18 @@
 {
   "presets": [
-    "es2015"{{#is framework 'react'}},
-    "react",
-    "stage-1"{{/is}}
+    ["@babel/preset-env", { "useBuiltIns": "entry" }]{{#is framework 'react'}},
+    "@babel/preset-react"{{/is}}
   ],
   "plugins": [
-    {{#is framework 'react'}}"transform-decorators-legacy",
-    "transform-object-assign"{{/is}}
+    {{#is framework 'react'}}["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]{{/is}}
   ],
   "env": {
     {{#is framework 'react'}}
     "production": {
-      "presets": [
-        "react-optimize"
+      "plugins": [
+        "@babel/plugin-transform-react-constant-elements",
+        "transform-react-remove-prop-types"
       ]
     }{{/is}}
   }
