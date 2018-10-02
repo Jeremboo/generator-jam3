@@ -1,3 +1,5 @@
+import { handleActions } from 'redux-actions';
+
 import keys from '../keys';
 
 const preloadList = require(`../../../raw-assets/preload.json`);
@@ -7,21 +9,13 @@ const defaultState = {
   progress: 0,
 };
 
-export default function(state = defaultState, action) {
-  switch (action.type) {
-    case keys.SET_ASSETS:
-      return {
-        ...state,
-        assets: action.payload,
-      };
-
-    case keys.SET_PROGRESS:
-      return {
-        ...state,
-        progress: action.payload,
-      };
-
-    default:
-      return state;
-  }
-};
+export default handleActions({
+  [keys.SET_ASSETS]: (state, action) => ({
+    ...state,
+    assets: action.payload
+  }),
+  [keys.SET_ASSETS]: (state, action) => ({
+    ...state,
+    progress: action.payload
+  }),
+}, defaultState);

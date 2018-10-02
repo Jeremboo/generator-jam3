@@ -1,3 +1,5 @@
+import { handleActions, combineActions } from 'redux-actions';
+
 import keys from '../keys';
 
 const defaultState = {
@@ -5,14 +7,17 @@ const defaultState = {
     height: 680
 };
 
-export default function(state = defaultState, action) {
-  switch (action.type) {
-    case keys.SET_WINDOW_SIZE:
-      return {
-        width: action.payload.width,
-        height: action.payload.height,
-      };
-    default:
-      return state;
-  }
-};
+export default handleActions({
+  [keys.SET_WINDOW_SIZE]: (state, action) => ({
+    width: action.payload.width,
+    height: action.payload.height,
+  }),
+  // You can have the same reducer for multiple actions
+  // https://redux-actions.js.org/api/combineactions
+  [combineActions(
+    keys.SET_HEIGHT, keys.SET_WIDTH
+  )]: (state, action) => ({
+    ...state,
+    ...action.payload
+  }),
+}, defaultState);

@@ -50,6 +50,7 @@
     "react-svg-inline": "^2.0.0",
     "react-transition-group-plus": "^0.5.2",
     "redux": "^3.4.0",
+    "redux-actions": "^2.6.1",
     "redux-thunk": "^2.3.0",
     "stats.js": "0.17.0"{{/is}}
   },

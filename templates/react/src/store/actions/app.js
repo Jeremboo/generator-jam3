@@ -1,15 +1,8 @@
+import { createActions } from 'redux-actions';
+
 import keys from '../keys';
 
-export const setReady = function(payload) {
-  return {
-    type: keys.SET_READY,
-    payload,
-  };
-};
-
-export const setConnected = function(payload) {
-  return {
-    type: keys.SET_CONNECTED,
-    payload,
-  };
-};
+export const { setReady, setConnected } = createActions(
+  keys.SET_READY,
+  keys.SET_CONNECTED,
+)

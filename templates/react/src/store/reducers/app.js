@@ -1,3 +1,5 @@
+import { handleActions } from 'redux-actions';
+
 import keys from '../keys';
 
 const defaultState = {
@@ -5,19 +7,13 @@ const defaultState = {
   connected: false,
 };
 
-export default function(state = defaultState, action) {
-  switch (action.type) {
-    case keys.SET_READY:
-      return {
-        ...state,
-        ready: action.payload,
-      };
-    case keys.SET_CONNECTED:
-      return {
-        ...state,
-        connected: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+export default handleActions({
+  [keys.SET_READY]: (state, action) => ({
+    ...state,
+    ready: action.payload
+  }),
+  [keys.SET_CONNECTED]: (state, action) => ({
+    ...state,
+    connected: action.payload
+  }),
+}, defaultState);
