@@ -1,26 +1,23 @@
 'use strict';
-import React from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { matchPath } from 'react-router';
 import { Link } from 'react-router-dom';
 import TransitionGroup from 'react-transition-group-plus';
 
 import Preloader from '../../components/Preloader';
+import Router from '../../components/Router';
 import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/if}}';
 
 import detect from '../../util/detect';
 
-class App extends React.PureComponent {
+class App extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      width: 960,
-      height: 570
-    };
   }
 
   onResize = () => {
-    this.setState({
+    this.props.setWindowSize({
       width: window.innerWidth,
       height: window.innerHeight
     });
@@ -35,21 +32,19 @@ class App extends React.PureComponent {
     window.removeEventListener('resize', this.onResize);
   }
 
-  matchPath = path => matchPath(location.pathname, path);
+  // ROUTING
 
-  renderPreloader = () => {
-    return (
-      <Preloader
-        key="preloader"
-        assetsList={this.props.assets}
-        setProgress={this.props.onProgress}
-        setReady={this.props.onReady}
-        windowWidth={this.state.width}
-        windowHeight={this.state.height}
-      />
-    );
-  };
+  isTestingRoute = () => (
+    location.pathname.split('/')[1] === 'test';
+  );
 
+  matchPath = path => (
+    matchPath(location.pathname, path);
+  );
+
+
+
+  // RENDER
   renderRoute = () => {
     return this.props.routes
       .filter(({ path }) => this.matchPath(path))
@@ -57,30 +52,33 @@ class App extends React.PureComponent {
   };
 
   render() {
-    const isTestRoute = location.pathname.split('/')[1] === 'test';
-    const renderContent = this.props.ready || isTestRoute
-      ? this.renderRoute
-      : this.renderPreloader;
+    const { ready } = this.props;
+    const renderContent = ready || this.isTestingRoute()
+      ? this.renderRoute()
+      : <Preloader
+        key="preloader"
+        assetsList={this.props.assets}
+        setProgress={this.props.onProgress}
+        setReady={this.props.onReady}
+      />
+    ;
 
     return (
-      <div id="App">
-        <TransitionGroup id="content" component="div" transitionMode="out-in">
-          {renderContent()}
+      <Fragment>
+        <TransitionGroup id="App" component="div" transitionMode="out-in">
+          {renderContent}
         </TransitionGroup>
         {detect.isPhone && <RotateScreen />}
-      </div>
+      </Fragment>
     );
   }
 }
 
 App.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
   ready: PropTypes.bool,
-  section: PropTypes.string,
-  windowWidth: PropTypes.number,
-  windowHeight: PropTypes.number,
-  setWindowSize: PropTypes.func
+  windowWidth: PropTypes.number.isRequired,
+  windowHeight: PropTypes.number.isRequired,
+  setWindowSize: PropTypes.func.isRequired
 };
 
 App.defaultProps = {

@@ -3,12 +3,15 @@
  * or go to `/test` to see the list of test components
  */
 
+import React from 'react';
+import { Route } from 'react-router-dom';
+
 import detect from '../util/detect';
 
-const manifest = [
+export const manifest = [
   {
     key: 'rotate',
-    Component: require('../components/Rotate{{#if sectionNames}}/Rotate{{/if}}').default,
+    Component: require('../components/Rotate').default,
     props: {
       portrait: true
     }
@@ -22,7 +25,7 @@ const manifest = [
   },
   {
     key: 'vp-full',
-    Component: require('../components/VideoPlayer{{#if sectionNames}}/VideoPlayer{{/if}}').default,
+    Component: require('../components/VideoPlayer').default,
     props: {
       style: { height: window.innerHeight },
       autoPlay: true,
@@ -45,7 +48,7 @@ const manifest = [
   },
   {
     key: 'vp-bg',
-    Component: require('../components/VideoPlayer{{#if sectionNames}}/VideoPlayer{{/if}}').default,
+    Component: require('../components/VideoPlayer').default,
     props: {
       style: { height: window.innerHeight },
       autoPlay: true,
@@ -63,7 +66,7 @@ const manifest = [
   },
   {
     key: 'vp-inline',
-    Component: require('../components/VideoPlayer{{#if sectionNames}}/VideoPlayer{{/if}}').default,
+    Component: require('../components/VideoPlayer').default,
     props: {
       style: {
         width: detect.isDesktop ? 768 : 320,
@@ -104,15 +107,9 @@ export default manifest
   .concat({
     key: 'test-index-page',
     Component: require('./components/TestPage').default,
-    path: {
-      path: '/test',
-      exact: true
-    }
+    path: '/test',
   })
-  .map(route => ({
-    path: {
-      path: '/test/' + route.key,
-      exact: true,
-    },
-    ...route
-  }));
+  .map(({ key, path = `/test/${key}`, Component, props = {} }) => (
+    <Route exact key={key} path={path} render={() => <Component {...props}/> } />
+  )
+);

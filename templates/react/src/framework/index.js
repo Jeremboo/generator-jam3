@@ -1,9 +1,7 @@
 'use strict';
 import React from 'react';
 import { render } from 'react-dom';
-import { Route } from 'react-router';
-import { ConnectedRouter } from 'react-router-redux';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router'
 import { Provider } from 'react-redux';
 import detect from '../util/detect';{{#if unsupported}}
 import warning from '../util/warning';

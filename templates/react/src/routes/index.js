@@ -9,4 +9,11 @@ export default [
       exact: true
     }
   }
+  {
+    key: 'home',
+    Component: () => <h1>Home</h1>,
+    path: {
+      path: '/',
+    }
+  }
 ];

@@ -1,16 +1,24 @@
 'use strict';
 import { compose, applyMiddleware, createStore, combineReducers } from 'redux'
-import { routerMiddleware, routerReducer } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { createBrowserHistory } from 'history';
 import thunk from 'redux-thunk';
 
 import reducers from './reducers';
 
+// HISTORY
+export const history = createBrowserHistory({
+  basename: process.env.BASENAME
+});
 
-export const history = createHistory({ basename: process.env.BASENAME });
+// STORE
+// Reducers
+const rootReducers = connectRouter(history)(reducers);
 
+// Preloaded State
 const initialState = {};
 
+// Enhancers
 const middleware = [routerMiddleware(history), thunk];
 const enhancers = [];
 
@@ -25,4 +33,4 @@ if (process.env.NODE_ENV === 'development') {
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
 
 
-export default createStore(reducers, initialState, composedEnhancers);
+export default createStore(rootReducers, initialState, composedEnhancers);

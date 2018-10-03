@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 
 import app from './app';
 import preloader from './preloader';
@@ -20,5 +19,4 @@ export default enableBatchActions(combineReducers({
   app,
   preloader,
   windowSize,
-  routing: routerReducer,
 }));

@@ -89,12 +89,10 @@ class Preloader extends React.PureComponent {
 
   render() {
     const props = this.props;
-    const style = Object.assign({}, props.style);
 
     return (
       <section
         id="Preloader"
-        style={style}
         ref={r => this.container = r}
       >
         <SVGInline
@@ -108,8 +106,6 @@ class Preloader extends React.PureComponent {
 }
 
 Preloader.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
   assets: PropTypes.array.isRequired,
   setProgress: PropTypes.func.isRequired,
   setReady: PropTypes.func.isRequired,
@@ -119,8 +115,6 @@ Preloader.propTypes = {
 };
 
 Preloader.defaultProps = {
-  className: '',
-  style: {},
   minDisplayTime: 0, // in milliseconds
   options: {
     xhrImages: false,

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import animate from 'gsap';
 import PropTypes from 'prop-types';
 
@@ -45,6 +46,7 @@ class Landing extends PureComponent {
       >
         <h1>Landing</h1>
         <p>{connected ? 'Connected' : 'Not connected'}</p>
+        <Link to="/Home">Home</Link>
       </main>
     );
   }
