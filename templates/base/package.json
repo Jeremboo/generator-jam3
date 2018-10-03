@@ -92,7 +92,7 @@
     "@babel/plugin-transform-react-constant-elements": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.18",
-    "stringify": "^5.2.0",{{/is}}{{/if}}
+    "stringify": "^5.2.0"{{/is}}{{/if}}
   },
   "browserify": {
     "transform": [{{#is framework 'bigwheel'}}
