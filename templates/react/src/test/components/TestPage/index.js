@@ -1,5 +1,5 @@
 import React from 'react';
-import { manifest } from '../../index';
+import routes from '../../index';
 import { Link } from 'react-router-dom';
 
 const linkStyle = {
@@ -28,12 +28,13 @@ export default class TestPage extends React.Component {
         ref={ref => {
           this.el = ref;
         }}
-        style={{ paddingTop: 20, paddingBottom: 20 }}
+        style=\{{ paddingTop: 20, paddingBottom: 20 }}
       >
-        {manifest
-          .map(({ key }) => (
-            <Link key={key} style={linkStyle} to={`/test/${key}`}>
-              {key}
+        {routes
+          .filter(r => r.key !== 'test-index-page')
+          .map(({ key, name, path }) => (
+            <Link key={key} style={linkStyle} to={typeof path === 'string' ? path : path.path}>
+              {name || key}
             </Link>
           ))}
       </div>
