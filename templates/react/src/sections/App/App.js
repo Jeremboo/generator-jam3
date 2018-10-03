@@ -1,15 +1,14 @@
 'use strict';
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { matchPath } from 'react-router';
-import { Link } from 'react-router-dom';
 import TransitionGroup from 'react-transition-group-plus';
 
 import Preloader from '../../components/Preloader';
-import Router from '../../components/Router';
-import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/if}}';
+import RotateScreen from '../../components/Rotate';
 
 import detect from '../../util/detect';
+
+import { getRoute, isTestingRoute } from '../../routes';
 
 class App extends PureComponent {
   constructor(props) {
@@ -32,29 +31,10 @@ class App extends PureComponent {
     window.removeEventListener('resize', this.onResize);
   }
 
-  // ROUTING
-
-  isTestingRoute = () => (
-    location.pathname.split('/')[1] === 'test';
-  );
-
-  matchPath = path => (
-    matchPath(location.pathname, path);
-  );
-
-
-
-  // RENDER
-  renderRoute = () => {
-    return this.props.routes
-      .filter(({ path }) => this.matchPath(path))
-      .map(({ Component, key, props }) => <Component key={key} {...props} />);
-  };
-
   render() {
     const { ready } = this.props;
-    const renderContent = ready || this.isTestingRoute()
-      ? this.renderRoute()
+    const renderContent = ready || isTestingRoute()
+      ? getRoute()
       : <Preloader
         key="preloader"
         assetsList={this.props.assets}

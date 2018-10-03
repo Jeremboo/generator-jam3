@@ -1,6 +1,9 @@
-import Landing from '../sections/Landing{{#if sectionNames}}/Landing{{/if}}';
+import React from 'react';
+import { matchPath } from 'react-router';
 
-export default [
+import Landing from '../sections/Landing';
+
+const manifest = [
   {
     key: 'landing',
     Component: Landing,
@@ -9,11 +12,21 @@ export default [
       exact: true
     }
   }
-  {
-    key: 'home',
-    Component: () => <h1>Home</h1>,
-    path: {
-      path: '/',
-    }
-  }
 ];
+
+if (process.env.NODE_ENV === 'development') {
+  manifest.push(...require('../test').default);
+}
+
+const match = path => (
+  matchPath(location.pathname, path)
+);
+
+export const isTestingRoute = () => (
+  location.pathname.split('/')[1] === 'test'
+);
+
+export const getRoute = () => manifest
+  .filter(({ path }) => match(path))
+  .map(({ Component, key, props }) => <Component key={key} {...props} />)
+;
