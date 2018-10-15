@@ -9,15 +9,20 @@ import LoaderIcon from '../../../raw-assets/svg/loader.svg';
 class Preloader extends React.PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      error: false
+    };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     animate.set(this.container, {autoAlpha: 0});
 
-    Promise.all([
-      this.setTimer(),
-      this.setLoader(),
-    ]).then(this.setDone)
+    try {
+      await this.load();
+    } catch(e) {
+      this.setState({ error: e.message });
+    }
   }
 
   componentWillAppear(done) {
@@ -40,6 +45,13 @@ class Preloader extends React.PureComponent {
     animate.to(this.container, 0.5, {autoAlpha: 0, onComplete});
   };
 
+  async load() {
+    await this.setTimer();
+    await this.setLoader();
+    // TODO add other things to load
+    this.setDone();
+  }
+
   setTimer() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -51,27 +63,11 @@ class Preloader extends React.PureComponent {
   setLoader() {
     return new Promise((resolve, reject) => {
       this.loader = preloader(this.props.options);
-      this.props.assets.forEach(file => this.add(file));
+      this.props.assets.forEach(file => this.loader.add(file, {}));
       this.loader.on('progress', this.onProgress);
       this.loader.on('complete', () => this.onComplete(resolve));
-      this.load();
+      this.loader.load();
     })
-  };
-
-  add(url, options = {}) {
-    this.loader.add(url, options);
-  };
-
-  get(url) {
-    return this.loader.get(url);
-  };
-
-  load() {
-    this.loader.load();
-  };
-
-  stopLoad() {
-    this.loader.stopLoad();
   };
 
   onProgress = (val) => {
@@ -83,7 +79,7 @@ class Preloader extends React.PureComponent {
     done();
   };
 
-  setDone = () => {
+  setDone() {
     this.props.setReady(true);
   };
 
@@ -95,11 +91,16 @@ class Preloader extends React.PureComponent {
         className="Preloader"
         ref={r => this.container = r}
       >
-        <SVGInline
-          className="loader-icon"
-          svg={LoaderIcon}
-          component="div"
-        />
+        <div className="Preloader-wrapper">
+          <SVGInline
+            className="Preloader-icon"
+            svg={LoaderIcon}
+            component="div"
+          />
+          {this.state.error
+            && <p className="Preloader-info _error">{this.state.error}</p>
+          }
+        </div>
       </section>
     );
   }

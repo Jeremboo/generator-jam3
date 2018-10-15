@@ -3,8 +3,8 @@ import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import TransitionGroup from 'react-transition-group-plus';
 
-import Preloader from '../../components/Preloader';
-import RotateScreen from '../../components/Rotate';
+import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{{/if}}';
+import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/if}}';
 
 import detect from '../../util/detect';
 
@@ -37,7 +37,6 @@ class App extends PureComponent {
       ? getRoute()
       : <Preloader
         key="preloader"
-        assetsList={this.props.assets}
         setProgress={this.props.onProgress}
         setReady={this.props.onReady}
       />
@@ -56,8 +55,6 @@ class App extends PureComponent {
 
 App.propTypes = {
   ready: PropTypes.bool,
-  windowWidth: PropTypes.number.isRequired,
-  windowHeight: PropTypes.number.isRequired,
   setWindowSize: PropTypes.func.isRequired
 };
 
