@@ -5,5 +5,25 @@
  * ====================================================================
  */
 {{#is css 'less'}}@ASSET_PATH: './assets/';
-@images: '@{ASSET_PATH}images/';{{/is}}{{#is css 'scss'}}$ASSET_PATH: './assets/' !default;
-$images: '#{$ASSET_PATH}images/';{{/is}}
+@images: '@{ASSET_PATH}images/';{{/is}}{{#is css 'scss'}}// PATH
+$ASSET_PATH: './assets/' !default;
+$images: '#{$ASSET_PATH}images/';
+
+// SIZE
+$margin: 16px;
+
+// Z-INDEX
+
+// COLOR
+$main-color:       #77C1F6;
+$background-color: #fff;
+$font-color:       #171717;
+$error-color:      #FE3535;
+
+// MQ BREAK POINTS
+$mq-breakpoints: (
+  mobile:  320px,
+  tablet:  740px,
+  desktop: 980px,
+  wide:    1300px
+);{{/is}}

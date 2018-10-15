@@ -4,4 +4,6 @@
  * Fonts go here, duh
  * ====================================================================
  */
-{{#is css 'less'}}@fonts: '@{ASSET_PATH}fonts/';{{/is}}{{#is css 'scss'}}$fonts: '#{$ASSET_PATH}fonts/';{{/is}}
+{{#is css 'less'}}@fonts: '@{ASSET_PATH}fonts/';{{/is}}{{#is css 'scss'}}$fonts: '#{$ASSET_PATH}fonts/';
+
+// @include font-face(FiraSans, $fonts + 'FiraSans/FiraSans-Regular');{{/is}}
