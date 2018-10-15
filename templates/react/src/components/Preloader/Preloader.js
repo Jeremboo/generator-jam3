@@ -92,7 +92,7 @@ class Preloader extends React.PureComponent {
 
     return (
       <section
-        id="Preloader"
+        className="Preloader"
         ref={r => this.container = r}
       >
         <SVGInline

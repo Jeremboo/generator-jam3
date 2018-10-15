@@ -45,7 +45,7 @@ class App extends PureComponent {
 
     return (
       <Fragment>
-        <TransitionGroup id="App" component="div" transitionMode="out-in">
+        <TransitionGroup className="App" component="div" transitionMode="out-in">
           {renderContent}
         </TransitionGroup>
         {detect.isPhone && <RotateScreen />}

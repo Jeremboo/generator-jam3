@@ -39,7 +39,7 @@ class Landing extends PureComponent {
 
     return (
       <main
-        id="Landing"
+        className="Landing"
         style={style}
         ref={r => this.container = r}
       >

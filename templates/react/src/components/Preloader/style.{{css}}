@@ -1,4 +1,4 @@
-#Preloader {
+.Preloader {
   display: flex;
   align-items: center;
   justify-content: center;

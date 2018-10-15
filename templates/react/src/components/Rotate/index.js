@@ -42,7 +42,7 @@ export default class RotateScreen extends React.PureComponent {
     };
 
     return (
-      <div id="Rotate" style={style}>
+      <div className="Rotate" style={style}>
         <div className="container">
           <SVGInline
             component="div"
