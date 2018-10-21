@@ -276,7 +276,7 @@
   order: 1;
 }
 
-{{#is css 'less'}}@media only screen and (min-width: 48em) {{{/is}}{{#is css 'scss'}}@include mq($from: tablet) {{{/is}}
+{{#is css 'less'}}@media only screen and (min-width: 48em){{/is}}{{#is css 'scss'}}@include mq($from: tablet){{/is}} {
   .container {
     width: 49rem;
   }
@@ -507,7 +507,7 @@
   }
 }
 
-{{#is css 'less'}}@media only screen and (min-width: 64em) {{{/is}}{{#is css 'scss'}}@include mq($from: desktop) {{{/is}}
+{{#is css 'less'}}@media only screen and (min-width: 64em){{/is}}{{#is css 'scss'}}@include mq($from: desktop){{/is}} {
   .container {
     width: 65rem;
   }
@@ -738,7 +738,7 @@
   }
 }
 
-{{#is css 'less'}}@media only screen and (min-width: 75em) {{{/is}}{{#is css 'scss'}}@include mq($from: wide) {{{/is}}
+{{#is css 'less'}}@media only screen and (min-width: 75em){{/is}}{{#is css 'scss'}}@include mq($from: wide){{/is}} {
   .container {
     width: 76rem;
   }
