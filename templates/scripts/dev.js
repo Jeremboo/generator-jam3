@@ -36,15 +36,15 @@ b.on('connect', function (ev) {
 });
 b.on('watch',function(e,file) {
   var ext = path.extname(file);
-  if (file.indexOf(path.basename(config.raw))>-1) {
-    copy(file);
-  } else if (file.indexOf('.less')>-1 || file.indexOf('.scss')>-1) {
+  if (file.indexOf('.less')>-1 || file.indexOf('.scss')>-1) {
     style(function(err) {
-      if (err) {
-        sendClientPopup(err);
-      }
+      if (err) sendClientPopup(err);
     });
+  } else if (file.indexOf(path.basename(config.output)) === -1) {
+    // If a saved file is external to the output
+    copy(file);
   } else if (ext && /\.(css|html?)$/i.test(ext)) {
+    // If the build is updated
     b.reload(file);
   }
 });

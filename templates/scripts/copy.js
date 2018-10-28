@@ -8,7 +8,7 @@ var mkdirp = require('mkdirp');
 var execFile = require('child_process').execFile;
 var pngquant = require('pngquant-bin');
 var mozjpeg = require('mozjpeg');
-var render = require("./template");
+var render = require('./template');
 var isbinaryfile = require('isbinaryfile');
 
 var blacklist = (config.templateBlacklist || []).map(path.normalize);
@@ -17,7 +17,15 @@ function copy(file) {
   var parsed = url.parse(config.ASSET_PATH);
   var assets = parsed.path || config.ASSET_PATH;
   if (file) {
-    copyFile(path.join(config.output,assets),config.raw,file);
+    // Copy the file into the output dir
+    var outputPath = config.output;
+    if (file.indexOf(path.basename(config.raw))>-1) {
+      // Is it into the assets ?
+      outputPath = path.join(config.output, assets);
+    }
+
+    var srcDir = './' + file.replace(file.split('/').pop(), '');
+    copyFile(outputPath, srcDir, file);
   } else {
     glob(path.join(config.raw,'**/*'),{dot: true, nodir: true},function(err,files) {
       if (!err) {

@@ -18,7 +18,6 @@ var post = function(file,src) {
         try {
           var min = uglify.minify(code,
             {
-              fromString: true,
               compress: {
                 drop_console: config.removeLogs===false ? false : true,
                 dead_code: config.deadCode===false ? false : true,
